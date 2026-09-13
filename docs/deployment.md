@@ -2,10 +2,16 @@
 
 ## Public demo
 
-Publication is being verified. The expected address is
-`https://signalrank-surya.elated-olm-8913.chatgpt.site`.
-An expected address is not proof of a successful deployment. The deployment receipt will
-be recorded here after the hosting service confirms success.
+[Open SignalRank](https://signalrank-surya.sg1670.chatgpt.site). Public access was verified on September 13, 2026.
+
+The hosting service confirmed the first deployment succeeded at 18:51:29 UTC.
+An unauthenticated HTTPS check retrieved the application HTML, JavaScript, CSS, and
+9,742-movie model catalog with HTTP 200. No login cookie or bypass token was used.
+
+Initial release receipt:
+- Source: `cfd1dd93d0df7d5846d19a4a1b449fdd7ef43f6f`
+- Version: 1
+- Deployment: `appgdep_6aa6f0499ca0819199fc816faa66c677`
 
 This is a static React demo with browser ranking using the scikit-learn-generated artifact.
 Each visitor's ratings, likes, saves, and genre choices remain in their browser. It does not

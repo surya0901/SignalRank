@@ -86,3 +86,5 @@ three Python/TypeScript ranking comparisons, and finite/no-self-neighbor invaria
 - Production frontend build and portable public build both completed successfully.
 - Live integration checks passed: independent sessions, persistence, ratings, likes, saves, search, recommendations, analytics, and session cleanup.
 - Catalog confirmed from PostgreSQL: 9,742 movies, 100,836 ratings, 610 users.
+
+- Public deployment succeeded. Anonymous HTTPS checks passed for HTML, JavaScript, CSS, and the 9,742-movie catalog. See [deployment notes](deployment.md).

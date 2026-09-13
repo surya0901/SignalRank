@@ -2,6 +2,8 @@
 
 Personalized movie discovery with recommendations you can understand.
 
+[Open the live demo](https://signalrank-surya.sg1670.chatgpt.site) · [Source code](https://github.com/surya0901/SignalRank)
+
 SignalRank combines item-based collaborative filtering, genre preferences, and smoothed
 community ratings in a responsive navy-and-cyan interface. Search the catalog, rate movies,
 like discoveries, save a collection, and inspect what shaped each recommendation.
