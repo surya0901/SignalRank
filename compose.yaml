@@ -1,0 +1,87 @@
+name: signalrank
+
+x-backend: &backend
+  image: signalrank-backend:local
+  build: ./backend
+  environment: &backend-env
+    POSTGRES_HOST: db
+    POSTGRES_DB: ${POSTGRES_DB:-signalrank}
+    POSTGRES_USER: ${POSTGRES_USER:-signalrank}
+    POSTGRES_PASSWORD_FILE: /run/signalrank/db_password
+    DATASET_URL: ${DATASET_URL:-https://files.grouplens.org/datasets/movielens/ml-latest-small.zip}
+    DATASET_SHA256: ${DATASET_SHA256:-696d65a3dfceac7c45750ad32df2c259311949efec81f0f144fdfb91ebc9e436}
+  volumes:
+    - credentials:/run/signalrank:ro
+    - dataset:/data
+    - artifacts:/artifacts
+
+services:
+  credentials:
+    image: python:3.12-slim
+    network_mode: none
+    volumes:
+      - credentials:/run/signalrank
+      - ./scripts/init-secrets.py:/init-secrets.py:ro
+    command: ["python", "/init-secrets.py"]
+    restart: "no"
+
+  db:
+    image: postgres:17-alpine
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-signalrank}
+      POSTGRES_USER: ${POSTGRES_USER:-signalrank}
+      POSTGRES_PASSWORD_FILE: /run/signalrank/db_password
+    volumes:
+      - credentials:/run/signalrank:ro
+      - postgres:/var/lib/postgresql/data
+    depends_on:
+      credentials:
+        condition: service_completed_successfully
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U \"$$POSTGRES_USER\" -d \"$$POSTGRES_DB\""]
+      interval: 3s
+      timeout: 3s
+      retries: 20
+    restart: unless-stopped
+
+  init:
+    <<: *backend
+    command: ["sh", "-c", "alembic upgrade head && python -m app.seed && python -m app.train"]
+    depends_on:
+      db:
+        condition: service_healthy
+    restart: "no"
+
+  api:
+    <<: *backend
+    ports:
+      - "127.0.0.1:${API_PORT:-8000}:8000"
+    depends_on:
+      init:
+        condition: service_completed_successfully
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8000/health/ready', timeout=3)"]
+      interval: 5s
+      timeout: 5s
+      retries: 12
+    restart: unless-stopped
+
+  frontend:
+    build: ./frontend
+    ports:
+      - "127.0.0.1:${WEB_PORT:-3000}:8080"
+    depends_on:
+      api:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "wget", "-q", "--spider", "http://127.0.0.1:8080/"]
+      interval: 10s
+      timeout: 3s
+      retries: 5
+    restart: unless-stopped
+
+volumes:
+  postgres:
+  credentials:
+  dataset:
+  artifacts:

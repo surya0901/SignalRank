@@ -1,0 +1,23 @@
+{
+  "protocol": "Global timestamp 80/20 split; >=5 train ratings; >=1 held-out rating >=4 in train catalog",
+  "cutoff": 1458635171,
+  "train_ratings": 80669,
+  "test_ratings": 20167,
+  "eligible_users": 28,
+  "excluded_test_users": 88,
+  "candidate_movies": 7867,
+  "k": 10,
+  "results": {
+    "hybrid": {
+      "precision_at_10": 0.11071428571428572,
+      "recall_at_10": 0.0652586394157413,
+      "catalog_coverage": 0.02046523452396085
+    },
+    "popularity": {
+      "precision_at_10": 0.08214285714285716,
+      "recall_at_10": 0.032983275048456384,
+      "catalog_coverage": 0.006355662895640015
+    }
+  },
+  "scope": "Offline retrieval experiment, not a measure of live engagement."
+}

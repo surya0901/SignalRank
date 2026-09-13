@@ -1,0 +1,10 @@
+{
+  "name": "signalrank",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "build": "node scripts/build-public.mjs",
+    "test": "npm --prefix frontend test",
+    "postinstall": "npm --prefix frontend ci --include=dev"
+  }
+}
