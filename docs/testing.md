@@ -88,3 +88,13 @@ three Python/TypeScript ranking comparisons, and finite/no-self-neighbor invaria
 - Catalog confirmed from PostgreSQL: 9,742 movies, 100,836 ratings, 610 users.
 
 - Public deployment succeeded. Anonymous HTTPS checks passed for HTML, JavaScript, CSS, and the 9,742-movie catalog. See [deployment notes](deployment.md).
+
+## GitHub Pages and poster release — 2026-09-14 UTC
+
+- Portable production build passed with `/SignalRank/` base path.
+- Frontend: 10 tests passed, including missing-poster and failed-image fallbacks.
+- GitHub Pages build reported `built` for publication commit `18096213051f4667ba78cfbd90509e5946581f91`.
+- Anonymous HTTP 200 checks passed for the github.io page, favicon, JavaScript, CSS, and movie catalog.
+- Published browser inspection confirmed film-specific poster elements and labeled title-card fallbacks.
+- 3,866 poster references were matched through IMDb identifiers. Nine representative IMDb poster endpoints returned image/jpeg; the Star Wars replacement returned HTTP 200 with a browser user agent. Coverage is not a guarantee that every external image remains available.
+- Public URL: https://surya0901.github.io/SignalRank/
