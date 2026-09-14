@@ -5,6 +5,7 @@
   "scripts": {
     "build": "node scripts/build-public.mjs",
     "test": "npm --prefix frontend test",
-    "postinstall": "npm --prefix frontend ci --include=dev"
+    "postinstall": "npm --prefix frontend ci --include=dev",
+    "build:github-pages": "node scripts/build-github-pages.mjs"
   }
 }

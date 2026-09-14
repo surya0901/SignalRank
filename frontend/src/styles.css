@@ -442,18 +442,6 @@ h1 {
 .movie-card:hover img {
   transform: scale(1.045);
 }
-.art-1 img {
-  filter: hue-rotate(25deg);
-  object-position: 30% center;
-}
-.art-2 img {
-  filter: hue-rotate(-20deg);
-  object-position: 70% center;
-}
-.art-3 img {
-  filter: sepia(0.3) hue-rotate(325deg);
-  object-position: 40% center;
-}
 .art-shade {
   position: absolute;
   inset: 0;
@@ -1594,3 +1582,10 @@ summary {
     scroll-behavior: auto !important;
   }
 }
+
+/* Preserve film artwork proportions and original colors at every breakpoint. */
+.movie-art { height: auto !important; aspect-ratio: 2 / 3; background: #091421; }
+.movie-art img { object-fit: contain; opacity: 1; }
+.poster-placeholder { height: 100%; padding: 24px 20px 110px; display: flex; flex-direction: column; justify-content: center; gap: 18px; background: linear-gradient(145deg, #173147, #0a1423 70%); color: #d6e9f3; }
+.poster-placeholder span, .poster-placeholder small { font-size: 10px; text-transform: uppercase; letter-spacing: 2px; color: #75bdd2; }
+.poster-placeholder strong { font-size: clamp(20px, 2vw, 30px); line-height: 1.2; font-weight: 500; }

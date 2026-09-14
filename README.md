@@ -2,7 +2,7 @@
 
 Personalized movie discovery with recommendations you can understand.
 
-[Open the live demo](https://signalrank-surya.sg1670.chatgpt.site) · [Source code](https://github.com/surya0901/SignalRank)
+[Open the live demo](https://surya0901.github.io/SignalRank/) · [Source code](https://github.com/surya0901/SignalRank)
 
 SignalRank combines item-based collaborative filtering, genre preferences, and smoothed
 community ratings in a responsive navy-and-cyan interface. Search the catalog, rate movies,
@@ -36,7 +36,7 @@ is implied by the public demo. See [deployment notes](docs/deployment.md) for ve
 - Responsive layout with desktop sidebar and mobile navigation, labeled controls, keyboard
   focus states, loading/error/retry states, and reduced-motion support.
 
-The movie artwork is atmospheric photography, not official posters. No generated synopses,
+Movie posters are matched by IMDb ID; unavailable images use labeled title cards. No generated synopses,
 streaming availability, current trending claims, or fictional engagement metrics are used.
 
 ## One-command full-stack startup
@@ -99,7 +99,7 @@ ports. In Compose, Nginx serves the production frontend and proxies `/api` on th
 ```text
 frontend/
   src/              UI, browser ranking, persistence adapter, tests
-  public/artwork/   Attributed atmosphere photographs
+  src/posters.json  MovieLens-to-poster mapping joined by IMDb ID
   public/data/      Exported model/catalog artifact for portable demo
 backend/
   app/              API, sessions, ingestion, recommendation model, evaluation
@@ -219,10 +219,7 @@ an HTTPS mirror only for that exact checksum; TLS verification is never disabled
 URLs do not silently fall back. No raw MovieLens ratings are committed. Retain attribution
 and review the original terms before redistribution or commercial use.
 
-Atmosphere photography: [Leo_Visions](https://unsplash.com/pt-br/fotografias/uma-estrada-que-atravessa-um-campo-sob-um-ceu-noturno-cheio-de-estrelas-NODGBBt370E),
-[Aleksandr Popov](https://unsplash.com/photos/blue-and-black-high-rise-building-GmLfS_S43gA),
-and [Francesco Ungaro](https://unsplash.com/photos/a-body-of-water-with-a-light-shining-on-it-CB08mpb-ync).
-See the [Unsplash license](https://unsplash.com/license).
+Poster references: [Pinecone movie-posters](https://huggingface.co/datasets/pinecone/movie-posters) and [MovieLens extension](https://github.com/vectorsss/movielens_100k_1m_extension), joined through the original MovieLens `links.csv` IMDb IDs. The Star Wars (1977) poster reference comes from [Wikipedia](https://en.wikipedia.org/wiki/Star_Wars_(film)). Posters belong to their respective owners; the repository stores image URLs rather than copies. External image availability and metadata accuracy are not guaranteed. See [poster notes](docs/posters.md).
 
 ## Screenshots
 

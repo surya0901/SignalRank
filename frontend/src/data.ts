@@ -50,7 +50,7 @@ function readPreferences(): Preferences {
 }
 export async function loadData(): Promise<[Catalog, Preferences]> {
   return Promise.all([
-    request<Catalog>(portable ? "/data/catalog.json" : "/api/catalog"),
+    request<Catalog>(portable ? `${import.meta.env.BASE_URL}data/catalog.json` : "/api/catalog"),
     portable
       ? Promise.resolve(readPreferences())
       : request<Preferences>("/api/auth/demo", { method: "POST" }),

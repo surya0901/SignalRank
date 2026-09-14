@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import Icon from "./Icon";
+import MoviePoster from "./MoviePoster";
 import { loadData, persist, portable } from "./data";
 import {
   Catalog,
@@ -26,14 +27,6 @@ const nav: [Page, string, string][] = [
 const format = (n: number) => n.toLocaleString();
 const percent = (n: number | null) =>
   n === null ? "Not evaluated" : `${(n * 100).toFixed(2)}%`;
-const art = (m: Movie) =>
-  m.genres.some((g) => ["Sci-Fi", "Fantasy", "Western"].includes(g))
-    ? "mountain-night"
-    : m.genres.some((g) =>
-          ["Adventure", "Animation", "Documentary"].includes(g),
-        )
-      ? "ocean-depths"
-      : "city-night";
 const ratingOptions = Array.from({ length: 10 }, (_, i) => (i + 1) / 2);
 
 export default function App() {
@@ -374,15 +367,11 @@ export default function App() {
                               className={`movie-card ${activeMovie?.id === movie.id ? "selected" : ""}`}
                             >
                               <button
-                                className={`movie-art art-${movie.id % 4}`}
+                                className="movie-art"
                                 aria-label={`Why ${title(movie)} is recommended`}
                                 onClick={() => setSelected(movie.id)}
                               >
-                                <img
-                                  src={`/artwork/${art(movie)}.jpg`}
-                                  alt=""
-                                  loading="lazy"
-                                />
+                                <MoviePoster movie={movie} />
                                 <div className="art-shade" />
                                 <span className="movie-year">
                                   {year(movie)}
@@ -512,8 +501,8 @@ export default function App() {
                       <div className="transparency">
                         <Icon name="info" size={15} />
                         <p>
-                          Artwork sets the mood; it isn’t an official movie
-                          poster.
+                          Posters are matched to each film. Missing images
+                          use a labeled title card.
                         </p>
                       </div>
                     </aside>
@@ -868,7 +857,7 @@ export default function App() {
                       The catalog ends in 2018. Historical ratings reflect
                       selection and popularity biases. Offline scores don’t
                       predict engagement. Saves indicate interest, not
-                      necessarily enjoyment. Genre artwork is illustrative.
+                      necessarily enjoyment. Poster coverage is incomplete.
                     </p>
                     <a
                       className="text-button"
@@ -890,7 +879,7 @@ export default function App() {
                   SignalRank <i>·</i> Find something that stays with you.
                 </span>
                 <span>
-                  MovieLens data <i>·</i> Photography from Unsplash
+                  MovieLens data <i>·</i> Posters belong to their respective owners
                 </span>
               </footer>
             </>
